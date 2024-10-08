@@ -10,32 +10,31 @@ import {
 } from "firebase/firestore";
 import { AddCFDTO, CFDTO, addCFSchema } from "../dto/cf";
 import { db } from "../../../services/firebase";
-import { Alert } from "react-native";
 
 // Função para adicionar uma fazenda
-async function addCF(data: AddCFDTO): Promise<boolean | string> {
-  try {
-    const validated = await addCFSchema.validate(data);
+// async function addCF(data: AddCFDTO): Promise<boolean | string> {
+//   try {
+//     const validated = await addCFSchema.validate(data);
 
-    // Remover campos com valor undefined
-    const cleanedData = Object.fromEntries(
-      Object.entries(validated).filter(([_, v]) => v !== undefined)
-    );
+//     // Remover campos com valor undefined
+//     const cleanedData = Object.fromEntries(
+//       Object.entries(validated).filter(([_, v]) => v !== undefined)
+//     );
 
-    const docRef = await addDoc(collection(db, "CF"), {
-      updatedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-      ...cleanedData,
-    });
+//     const docRef = await addDoc(collection(db, "CF"), {
+//       updatedAt: new Date().toISOString(),
+//       createdAt: new Date().toISOString(),
+//       ...cleanedData,
+//     });
 
-    Alert.alert("Documento adicionado com sucesso!");
-    return docRef.id;
-  } catch (error: any) {
-    Alert.alert("Erro ao adicionar Documento", error.message);
-    console.error("Erro ao adicionar Documento", error);
-    return false;
-  }
-}
+//   //   Alert.alert("Documento adicionado com sucesso!");
+//   //   return docRef.id;
+//   // } catch (error: any) {
+//     // Alert.alert("Erro ao adicionar Documento", error.message);
+//     // console.error("Erro ao adicionar Documento", error);
+//     // return false;
+//   }
+// }
 
 // Função para obter todas as fazendas
 async function getCFByFazendaId(fazendaId: string): Promise<CFDTO[]> {
@@ -75,16 +74,16 @@ async function getCFById(id: string): Promise<CFDTO> {
   }
 }
 
-async function deleteCF(id: string): Promise<boolean> {
-  try {
-    await deleteDoc(doc(db, "CF", id));
-    Alert.alert("Documento deletado com sucesso!");
-    return true;
-  } catch (error) {
-    Alert.alert("Erro ao deletar documento");
-    console.error("Erro ao deletar documento", error);
-    return false;
-  }
-}
+// async function deleteCF(id: string): Promise<boolean> {
+//   try {
+//     await deleteDoc(doc(db, "CF", id));
+//     Alert.alert("Documento deletado com sucesso!");
+//     return true;
+//   } catch (error) {
+//     Alert.alert("Erro ao deletar documento");
+//     console.error("Erro ao deletar documento", error);
+//     return false;
+//   }
+// }
 
-export { addCF, getCFByFazendaId, getCFById, deleteCF };
+// export { addCF, getCFByFazendaId, getCFById, deleteCF };
